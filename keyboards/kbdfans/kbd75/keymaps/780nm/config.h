@@ -1,0 +1,47 @@
+#pragma once
+
+//Disable unused features
+#ifdef BACKLIGHT_LEVELS
+#undef BACKLIGHT_LEVELS
+#endif
+#ifdef BACKLIGHT_PIN
+#undef BACKLIGHT_PIN
+#endif
+
+#ifdef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_SUPPORT_ENABLE
+#endif
+#ifdef LOCKING_RESYNC_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+#endif
+
+#ifdef RGBLIGHT_ANIMATIONS
+#undef RGBLIGHT_ANIMATIONS
+#endif
+
+
+//Enable select animations
+#define RGBLIGHT_LAYERS
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_STATIC_GRADIENT
+
+
+//Modify defaults
+#ifdef RGBLIGHT_HUE_STEP
+#undef RGBLIGHT_HUE_STEP
+#endif
+#ifdef RGBLIGHT_SAT_STEP
+#undef RGBLIGHT_SAT_STEP
+#endif
+#ifdef RGBLIGHT_VAL_STEP
+#undef RGBLIGHT_VAL_STEP
+#endif
+
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 16
+#define RGBLIGHT_VAL_STEP 16
+
+#define MOUSEKEY_INTERVAL 16
+#define MOUSEKEY_MAX_SPEED 4
+#define MOUSEKEY_TIME_TO_MAX 50
