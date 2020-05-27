@@ -9,6 +9,19 @@
 #    define SLEEP_LED_TIMER 1
 #endif
 
+#ifdef SLEEP_LED_USE_RGB
+    #include "rgblight.h"
+    #ifndef SLEEP_LED_RGB_MAX
+    #define SLEEP_LED_RGB_MAX 127
+    #endif
+    #ifndef SLEEP_LED_RGB_HS
+    #define SLEEP_LED_RGB_HS 0, 0
+    #endif
+    #ifndef SLEEP_LED_RGB_INDEX
+    #define SLEEP_LED_RGB_INDEX 0
+    #endif
+#endif
+
 #if SLEEP_LED_TIMER == 1
 #    define TCCRxB TCCR1B
 #    define TIMERx_COMPA_vect TIMER1_COMPA_vect
@@ -111,14 +124,27 @@ ISR(TIMERx_COMPA_vect) {
         } pwm;
     } timer = {.row = 0};
 
-    timer.row++;
+    #ifdef SLEEP_LED_USE_RGB
+        if (timer.row == 0) { //Hack to clear initial LED state, re-runs every overflow
+            rgblight_setrgb(0, 0 ,0);
+        }
 
-    // LED on
-    if (timer.pwm.count == 0) {
-        led_set(1 << USB_LED_CAPS_LOCK);
-    }
-    // LED off
-    if (timer.pwm.count == pgm_read_byte(&breathing_table[timer.pwm.index])) {
-        led_set(0);
-    }
+        timer.row++;
+
+        if((timer.row & 1023) == 0){ //Skip update if we know no change will occur, greatly increases smoothness
+            uint8_t val = pgm_read_byte(&breathing_table[timer.pwm.index]) * SLEEP_LED_RGB_MAX / 255;
+            rgblight_sethsv_at(SLEEP_LED_RGB_HS, val, SLEEP_LED_RGB_INDEX);
+        }
+    #else
+        timer.row++;
+
+        // LED on
+        if (timer.pwm.count == 0) {
+            led_set(1 << USB_LED_CAPS_LOCK);
+        }
+        // LED off
+        if (timer.pwm.count == pgm_read_byte(&breathing_table[timer.pwm.index])) {
+            led_set(0);
+        }
+    #endif
 }
