@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
+#include "sleep_led.h"
 
-//Layer names
+//Names
 
 enum layer_names {
     _QW,
@@ -28,28 +29,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FM] = LAYOUT_ansi_1u(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,
-    KC_BTN2,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
-    KC_BTN1,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,
-    _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            KC_MS_U,  _______,
-    _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  KC_MS_L,  KC_MS_D,  KC_MS_R
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,
+    _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            KC_MS_U,  KC_BTN2,
+    _______,  _______,  _______,                                _______,                                _______,  _______,  KC_BTN1,  KC_MS_L,  KC_MS_D,  KC_MS_R
   ),
 
   //General-use functions
   [_FN] = LAYOUT_ansi_1u(
-    DM_RSTP,  DM_PLY2,  DM_PLY2,  XXXXXXX,  XXXXXXX,  KC_BRIU,  KC_BRID,  KC_VOLD,  KC_VOLU,  KC_MUTE,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_PSCR,  KC_SLCK,  KC_NLCK,
-    XXXXXXX,  DM_REC1,  DM_REC2,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  XXXXXXX,
+    KC_PWR,   KC_SLEP,  KC_WAKE,  XXXXXXX,  XXXXXXX,  KC_BRIU,  KC_BRID,  KC_VOLD,  KC_VOLU,  KC_MUTE,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_PSCR,  KC_SLCK,  KC_NLCK,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  KC_MS_U,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  C(KC_B),            XXXXXXX,
     XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                   C(S(KC_B)),  XXXXXXX,
     XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_APP,   XXXXXXX,            KC_WH_U,  XXXXXXX,
-    KC_PWR,   KC_SLEP,  KC_WAKE,                                KC_LOCK,                                TG(_FA),  XXXXXXX,  TG(_FM),  KC_BTN1,  KC_WH_D,  KC_BTN2
+    XXXXXXX,  XXXXXXX,  XXXXXXX,                                KC_LOCK,                                TG(_FA),  XXXXXXX,  TG(_FM),  KC_BTN1,  KC_WH_D,  KC_BTN2
   ),
 
   //Administrative functions
   [_FA] = LAYOUT_ansi_1u(
-    RESET,    EEP_RST,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    RESET,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     RGB_TOG,  RGB_MOD,  RGB_RMOD, RGB_HUI,  RGB_HUD,  RGB_SAI,  RGB_SAD,  RGB_VAI,  RGB_VAD,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                      XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  EEP_RST,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  DEBUG,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                      XXXXXXX,  XXXXXXX,
     XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  NK_ON,    NK_OFF,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  XXXXXXX,
     XXXXXXX,  GUI_ON,   GUI_OFF,                                XXXXXXX,                                TG(_FA),  TG(_FA),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
   )
@@ -59,26 +60,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //RGB Layers
 
-const rgblight_segment_t PROGMEM rgb_layer_capslock[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, 0, 255, 150}
-);
-const rgblight_segment_t PROGMEM rgb_layer_scrllock[] = RGBLIGHT_LAYER_SEGMENTS(
-    {7, 1, 0, 0, 150}
-);
-const rgblight_segment_t PROGMEM rgb_layer_numlock[] = RGBLIGHT_LAYER_SEGMENTS(
-    {8, 1, 0, 0, 150}
-);
+//Key Indicators
+const rgblight_segment_t PROGMEM rgb_layer_capslock[] = RGBLIGHT_LAYER_SEGMENTS({0, 1, 0, 255, 150});
+const rgblight_segment_t PROGMEM rgb_layer_scrllock[] = RGBLIGHT_LAYER_SEGMENTS({1, 1, 0, 0, 150});
+const rgblight_segment_t PROGMEM rgb_layer_numlock[] = RGBLIGHT_LAYER_SEGMENTS({2, 1, 0, 0, 150});
 
 //Layer indicators
-const rgblight_segment_t PROGMEM rgb_layer_FM[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, 30, 218, 150}, {7, 2, 30, 218, 150}, {15, 1, 30, 218, 150}
-);
-const rgblight_segment_t PROGMEM rgb_layer_FN[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, 0, 0, 150}, {7, 2, 0, 0, 150}, {15, 1, 0, 0, 150}
-);
-const rgblight_segment_t PROGMEM rgb_layer_FA[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, 0, 255, 150}, {7, 2, 0, 255, 150}, {15, 1, 0, 255, 150}
-);
+const rgblight_segment_t PROGMEM rgb_layer_FM[] = RGBLIGHT_LAYER_SEGMENTS({7, 1, 30, 218, 150});
+const rgblight_segment_t PROGMEM rgb_layer_FN[] = RGBLIGHT_LAYER_SEGMENTS({7, 1, 0, 0, 150});
+const rgblight_segment_t PROGMEM rgb_layer_FA[] = RGBLIGHT_LAYER_SEGMENTS({7, 1, 0, 255, 150});
+
+//Build indicators
+const rgblight_segment_t PROGMEM rgb_layer_aff[] = RGBLIGHT_LAYER_SEGMENTS({6, 1, 106, 255, 150});
+const rgblight_segment_t PROGMEM rgb_layer_neg[] = RGBLIGHT_LAYER_SEGMENTS({6, 1, 30, 218, 150});
 
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_layer_FM,
@@ -86,7 +80,9 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_layer_scrllock,
     rgb_layer_numlock,
     rgb_layer_FN,
-    rgb_layer_FA
+    rgb_layer_FA,
+    rgb_layer_aff,
+    rgb_layer_neg
 );
 
 
@@ -110,6 +106,28 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case C(S(KC_B)):
+      rgblight_blink_layer(6, 3000);
+      break;
+    case C(KC_B):
+      rgblight_blink_layer(7, 3000);
+      break;
+    case DEBUG:
+      rgblight_blink_layer(debug_enable ? 6 : 7, 500);
+      break;
+    case NK_TOGG:
+    case NK_ON:
+    case NK_OFF:
+        rgblight_blink_layer(keymap_config.nkro ? 6 : 7, 500);
+        break;
+    case GUI_ON:
+    case GUI_OFF:
+        rgblight_blink_layer(keymap_config.no_gui ? 6 : 7, 500);
+        break;
+  }
+}
 
 //Override backlight functions
 
@@ -120,9 +138,3 @@ void led_set_user(uint8_t usb_led) {
 void matrix_init_user(void) {
   //no backlighting
 }
-
-/*
-void suspend_power_down_user(void) {
-    //WIP: animated suspend light
-}
-*/
