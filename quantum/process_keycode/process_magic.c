@@ -132,6 +132,9 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
                         PLAY_SONG(cg_norm_song);
 #endif
                         break;
+                    case MAGIC_TOGGLE_GUI:
+                        keymap_config.no_gui = !keymap_config.no_gui;
+                        break;
                     case MAGIC_TOGGLE_ALT_GUI:
                         keymap_config.swap_lalt_lgui = !keymap_config.swap_lalt_lgui;
                         keymap_config.swap_ralt_rgui = keymap_config.swap_lalt_lgui;
