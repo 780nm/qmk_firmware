@@ -5,7 +5,10 @@
 //Names
 
 enum custom_keycodes {
-    VS2019 = SAFE_RANGE,
+    DC_TVA = SAFE_RANGE,
+    DC_TM,
+    DC_TD,
+    DC_TS,
     DUPL,
     VD_N,
     VD_L,
@@ -16,7 +19,9 @@ enum custom_keycodes {
 };
 
 enum tap_keycodes {
-    CD,
+    BLD,
+    VS,
+    IDE,
     DM1,
     DM2,
     CLN
@@ -34,15 +39,17 @@ enum layer_names {
 
 //Keymap
 
+#define L_CAPS LT(_FN, KC_CAPS)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   //QWERTY Base
   [_QW] = LAYOUT_ansi_1u(
-    KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_HOME,  KC_END,   KC_INS,
+    KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   TD(VS),   TD(IDE),  TD(BLD),
     KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,             KC_BSPC,  KC_DEL,
-    KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_PGUP,
-    KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,                      KC_ENT,   KC_PGDN,
-    KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,            KC_UP,    TD(CD),
+    KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_HOME,
+    L_CAPS,   KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,                      KC_ENT,   KC_END,
+    KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,            KC_UP,    KC_INS,
     KC_LCTL,  KC_LGUI,  KC_LALT,                                KC_SPC,                                 KC_RALT,  MO(_FN),  KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT
   ),
 
@@ -56,24 +63,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______,  _______,                                _______,                                _______,  _______,  KC_BTN1,  KC_MS_L,  KC_MS_D,  KC_MS_R
   ),
 
-  //Func -> Dynamic Macro(toggle)
+  //Pg U/D -> Dynamic Macro(toggle)
   [_FD] = LAYOUT_ansi_1u(
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  TD(DM1),  TD(DM2),  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            TD(DM1),
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  TD(DM2),
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+    TD(DM1),  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,
     _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,
     _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______
   ),
 
   //General-use functions
   [_FN] = LAYOUT_ansi_1u(
-    KC_PWR,   KC_SLEP,  KC_WAKE,  XXXXXXX,  XXXXXXX,  KC_BRID,  KC_BRIU,  KC_VOLD,  KC_VOLU,  KC_MUTE,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_SLCK,  KC_NLCK,  KC_BRK,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  KC_PSCR,
-    XXXXXXX,  VD_L,     KC_MS_U,  VD_R,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,
-    VD_C,     KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                      XXXXXXX,  XXXXXXX,
-    VD_N,               XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_APP,   XXXXXXX,            KC_WH_U,  VS2019,
-    DUPL,     XXXXXXX,  TG(_FA),                                KC_LOCK,                                TG(_FD),  XXXXXXX,  TG(_FM),  KC_BTN1,  KC_WH_D,  KC_BTN2
+    KC_PWR,   KC_SLEP,  KC_WAKE,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_BRID,  KC_BRIU,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_PSCR,  KC_PAUS,  KC_SLCK,
+    DC_TVA,   DC_TM,    DC_TD,    DC_TS,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MUTE,  KC_VOLD,  KC_VOLU,            XXXXXXX,  KC_NLCK,
+    XXXXXXX,  VD_L,     KC_MS_U,  VD_R,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            KC_PGUP,
+    XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                      XXXXXXX,  KC_PGDN,
+    XXXXXXX,            VD_N,     VD_C,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_APP,   TG(_FA),            KC_WH_U,  XXXXXXX,
+    DUPL,     XXXXXXX,  XXXXXXX,                                XXXXXXX,                                TG(_FD),  XXXXXXX,  TG(_FM),  KC_BTN1,  KC_WH_D,  KC_BTN2
   ),
 
   //Administrative functions
@@ -83,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,  XXXXXXX,  XXXXXXX,  EEP_RST,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                      XXXXXXX,  XXXXXXX,
     XXXXXXX,            XXXXXXX,  XXXXXXX,  CLEAN,    VLK_TOG,  XXXXXXX,  NK_TOGG,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  XXXXXXX,
-    XXXXXXX,  GUI_TOG,  TG(_FA),                                XXXXXXX,                                XXXXXXX,  TG(_FA),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+    XXXXXXX,  GUI_TOG,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  TG(_FA),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
   ),
 
   //Administrative functions
@@ -179,9 +186,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     if (record->event.pressed) {
         switch (keycode) {
-            case VS2019:
-                //SEND_STRING(SS_LGUI(SS_TAP(X_R))SS_DELAY(200)"\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Common7\\IDE\\devenv.exe\"\n");
-                SEND_STRING(SS_TAP(X_LGUI)SS_DELAY(200)"Visual Studio 2019"SS_DELAY(200)SS_TAP(X_ENT));
+            case DC_TVA:
+                SEND_STRING(SS_LCTL(SS_LSFT(SS_LALT(SS_TAP(X_GRV)))));
+                return false;
+            case DC_TM:
+                SEND_STRING(SS_LCTL(SS_LSFT(SS_LALT("1"))));
+                return false;
+            case DC_TD:
+                SEND_STRING(SS_LCTL(SS_LSFT(SS_LALT("2"))));
+                return false;
+            case DC_TS:
+                SEND_STRING(SS_LCTL(SS_LSFT(SS_LALT("3"))));
                 return false;
             case DUPL:
                 SEND_STRING(SS_LCTL("cv"));
@@ -249,6 +264,36 @@ void dance_build (qk_tap_dance_state_t *state, void *user_data) {
     return;
 }
 
+void dance_vs (qk_tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            SEND_STRING(SS_LCTL("kc"));
+            break;
+        default:
+            SEND_STRING(SS_LCTL("ku"));
+            break;
+    }
+    return;
+}
+
+void dance_ide (qk_tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            SEND_STRING(SS_TAP(X_LGUI)SS_DELAY(200)"Visual Studio 2019"SS_DELAY(200)SS_TAP(X_ENT));
+            rgblight_blink_layer(0, 500);
+            break;
+        case 2:
+            SEND_STRING(SS_TAP(X_LGUI)SS_DELAY(200)"Visual Studio Code"SS_DELAY(200)SS_TAP(X_ENT));
+            rgblight_blink_layer(0, 500);
+            break;
+        default:
+            SEND_STRING(SS_TAP(X_LGUI)SS_DELAY(200)"Git Extensions"SS_DELAY(200)SS_TAP(X_ENT));
+            rgblight_blink_layer(1, 500);
+            break;
+    }
+    return;
+}
+
 static keyrecord_t KEYREC = {{{0,0},false,0}, {0,0,0,0,0}};
 
 void dance_DM1 (qk_tap_dance_state_t *state, void *user_data) {
@@ -274,7 +319,7 @@ void dance_DM2 (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_CLN (qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 3) {
+    if (state->count >= 3) {
         layer_off(_CLN);
         rgblight_set_layer_state(10, false);
     }
@@ -282,7 +327,9 @@ void dance_CLN (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [CD] = ACTION_TAP_DANCE_FN(dance_build),
+    [BLD] = ACTION_TAP_DANCE_FN(dance_build),
+    [VS] = ACTION_TAP_DANCE_FN(dance_vs),
+    [IDE] = ACTION_TAP_DANCE_FN(dance_ide),
     [DM1] = ACTION_TAP_DANCE_FN(dance_DM1),
     [DM2] = ACTION_TAP_DANCE_FN(dance_DM2),
     [CLN] = ACTION_TAP_DANCE_FN(dance_CLN)
